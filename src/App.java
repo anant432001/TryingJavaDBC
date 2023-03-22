@@ -5,8 +5,8 @@ public class App {
         String url = "jdbc:mysql://localhost:3306/demo"; //Name of DataBase
         String username = "root";   //SQL UserName
         String password = "4321@anant"; //SQL Password
-        String query = "select * from Persons;"; //Query To Perform
-        
+        String query = "SELECT * FROM PERSONS;"; //Query To Perform
+        String query2 = "INSERT INTO PERSONS VALUES ('7', 'Rakshit', 'Yadav');";
         // Load driver class
         Class.forName(driverClassName);
         
@@ -14,9 +14,12 @@ public class App {
         Connection con = DriverManager.getConnection(url, username, password);
         
         // Obtain a statement
-        Statement st = con.createStatement();
- 
+        PreparedStatement ps = con.prepareStatement(query2); //For queries that do not produce results
+        Statement st = con.createStatement(); //For queries that produce results
+        
         // Execute the query
+        ps.execute(query2);
+        
         ResultSet rs = st.executeQuery(query);
         while(rs.next()){
             String fname = rs.getString("FirstName");
